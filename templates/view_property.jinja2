@@ -1,0 +1,39 @@
+{% extends "layout.jinja2" %}
+
+{% block content %}
+    <div class="row">
+    <div class="col-md-6">
+    <div class="address_details">
+        <h1>
+        <!-- if pic load it here -->
+        {{ property.address.street }} <br>
+        {{ property.address.city }}, {{ property.address.state }} <br>
+        {{ property.address.zip }} <br>
+        </h1>
+    </div>
+    {% if current_lease %}
+        <div class="renter_details">
+            <div class="header">
+                <h2> Current Renter </h2>
+            </div>
+            {{ current_lease.renter.first_name }} {{ current_lease.renter.last_name }}<br>
+            {{ current_lease.renter.phone }} <br>
+            {{ current_lease.renter.email }} 
+        </div>
+        <div class="lease_details">
+            <div class="header">
+                <h3> Lease Details </h3>
+            </div>
+                <h4> Start Date </h4>
+                {{ current_lease.start_date }}
+                <h4> End Date </h4>
+                {{ current_lease.end_date }}
+                <h4> Rate </h4>
+                {{ current_lease.rate }}
+        </div>
+    {% else %}
+        <h4> This property is not currently being rented <h4>
+        <button id="addLease" onclick="addLease({{property.id}})"> Click to add renter </button>
+    {% endif %}
+
+{% endblock %}

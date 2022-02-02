@@ -1,0 +1,74 @@
+{% extends "layout.jinja2" %}
+
+{% block pagestyles %}
+  <link href="{{ url_for('static', filename='dist/css/account.css') }}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block content %}
+  <div class="renter_form-wrapper">
+
+    {% for message in get_flashed_messages() %}
+      <div class="alert alert-warning">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        {{ message }}
+      </div>
+    {% endfor %}
+
+    <h1>Add Renter information</h1>
+
+    <form method="POST" action="/add_renter">
+      {{ renter_form.csrf_token }}
+      <div class="renter_details">
+      <fieldset class="first_name">
+        {{ renter_form.first_name.label }}
+        {{ renter_form.first_name }}
+        {% if renter_form.first_name.errors %}
+          <ul class="errors">
+            {% for error in renter_form.first_name.errors %}
+              <li>{{ error }}</li>{% endfor %}
+          </ul>
+        {% endif %}
+      </fieldset>
+
+      <fieldset class="last_name">
+        {{ renter_form.last_name.label }}
+        {{ renter_form.last_name }}
+        {% if renter_form.last_name.errors %}
+          <ul class="errors">
+            {% for error in renter_form.last_name.errors %}
+              <li>{{ error }}</li>{% endfor %}
+          </ul>
+        {% endif %}
+      </fieldset>
+
+      <fieldset class="email">
+        {{ renter_form.email.label }}
+        {{ renter_form.email }}
+        {% if renter_form.email.errors %}
+          <ul class="errors">
+            {% for error in renter_form.email.errors %}
+              <li>{{ error }}</li>{% endfor %}
+          </ul>
+        {% endif %}
+      </fieldset>
+
+      <fieldset class="phone">
+        {{ renter_form.phone.label }}
+        {{ renter_form.phone }}
+        {% if renter_form.phone.errors %}
+          <ul class="errors">
+            {% for error in renter_form.phone.errors %}
+              <li>{{ error }}</li>{% endfor %}
+          </ul>
+        {% endif %}
+      </fieldset>
+      </div>
+
+      <div class="submit-button">
+        {{ renter_form.submit }}
+      </div>
+
+    </form>
+
+  </div>
+{% endblock %}

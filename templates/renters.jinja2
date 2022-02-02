@@ -1,0 +1,40 @@
+{% extends "layout.jinja2" %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-10">
+            <h1>Your Renters</h1>
+        </div>
+        <div class="col-md-2">
+            <button id="addRenter" onclick="addRenter()">Add renter</button>
+        </div>
+    </div>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for renter in renters %}
+            <tr>
+                {% if name_order_first_last %}
+                <td><a href="/renter/{{renter.id}}">{{ renter.first_name }} {{ renter.last_name }}</a></td>
+                {% else %}
+                <td><a href="/renter/{{renter.id}}"> {{ renter.last_name }}, {{ renter.first_name }}</a></td>
+                {% endif %}
+                <td>{{ renter.email }}</td>
+                <td>{{ renter.phone }}</td>
+                {% if renter.current_lease() %}
+                <td style="color: green;">Active</td>
+                {% else %}
+                <td style="color: red;">Inavtive</td>
+                {% endif %}
+            </tr> 
+        {% endfor %} 
+        <tbody>
+    </table>  
+{% endblock %}

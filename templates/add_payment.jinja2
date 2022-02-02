@@ -1,0 +1,62 @@
+{% extends "layout.jinja2" %}
+
+{% block pagestyles %}
+  <link href="{{ url_for('static', filename='dist/css/account.css') }}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block content %}
+  <div class="form-wrapper">
+
+    {% for message in get_flashed_messages() %}
+      <div class="alert alert-warning">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        {{ message }}
+      </div>
+    {% endfor %}
+
+    <h1>Add a payment for {{renter_id}}</h1>
+
+    <form method="POST">
+      {{ form.csrf_token }}
+
+      <fieldset class="date">
+        {{ form.date.label }}
+        {{ form.date }}
+        {% if form.date.errors %}
+          <ul class="errors">
+            {% for error in form.date.errors %}
+              <li>{{ error }}</li>{% endfor %}
+          </ul>
+        {% endif %}
+      </fieldset>
+
+      <fieldset class="amount">
+        {{ form.amount.label }}
+        {{ form.amount }}
+        {% if form.amount.errors %}
+          <ul class="errors">
+            {% for error in form.amount.errors %}
+              <li>{{ error }}</li>{% endfor %}
+          </ul>
+        {% endif %}
+      </fieldset>
+
+      <fieldset class="description">
+        {{ form.description.label }}
+        {{ form.description(size = 50, maxlength = 200) }}
+        {% if form.description.errors %}
+          <ul class="errors">
+            {% for error in form.description.errors %}
+              <li>{{ error }}</li>{% endfor %}
+          </ul>
+        {% endif %}
+      </fieldset>
+
+      <div class="submit-button">
+        {{ form.submit }}
+      </div>
+
+    </form>
+
+  </div>
+{% endblock %}

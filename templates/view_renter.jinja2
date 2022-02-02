@@ -1,0 +1,87 @@
+{% extends "layout.jinja2" %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="renter_details">
+                <h2>
+                <!-- if pic load it here -->
+                {{ renter.first_name }} {{ renter.last_name }}<br>
+                </h2>
+                {{ renter.phone }}<br>
+                {{ renter.email }}<br>
+            </div>
+        </div> <!--end col-->
+        <div class="col-md-6">
+        <!--Lease information-->
+            <div class="lease_details">
+                <h2>Lease Details</h2>
+                {% if renter.leases %}
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Lease _id</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Rate</th>
+                            <th>Address</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for lease in renter.leases %}
+                    <tr>
+                        <td>{{ lease.id }}</td>
+                        <td>{{ lease.start_date.month }}/{{ lease.start_date.year }}</td>
+                        <td>{{ lease.end_date.month }}/{{ lease.end_date.year }}</td>
+                        <td>{{ lease.rate }}</td>
+                        <td>{{ renter.current_address() }}</td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                <p>Renter is not in an active lease</p>
+                {% endif %}
+            </div>
+        </div> <!--end col-->
+    </div> <!--end row-->
+</div>
+
+<!--Payment information-->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="payment_details">
+                <h3>Payment History</h3>
+                {% if renter.payments %}
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Amount</th>
+                                <th>Date</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        {% for payment in renter.payments %}
+                        <tr>
+                            <td>{{ payment.amount }}</td>
+                            <td>{{ payment.date }}</td>
+                            <td>{{ payment.description }}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                {% else %}
+                    <p>No Payment Info</p>
+                {% endif %}
+            </div>
+        </div> <!--end col-->
+    </div> <!--end row-->
+</div>
+
+<!--Record a payment-->
+<button id="addPayment" onclick="addPayment({{renter.id}})">Record a payment</button>
+
+
+</div>
+{% endblock %}

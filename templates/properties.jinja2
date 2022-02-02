@@ -1,0 +1,49 @@
+{% extends "layout.jinja2" %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-10">
+           <h1>Your Properties</h1>
+        </div>
+        <div class="col-md-2">
+            <button id="addProperty" onclick="addProperty()">Add property</button>
+        </div>
+    </div>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Street</th>
+                <th>City</th>
+                <th>State</th>
+                <th>Zip</th>
+                <th>Status</th>
+                <th>Renter</th>
+                <th>Lease Start</th>
+                <th>Lease End</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for result in results %}
+            <tr>
+                <td><a href="/property/{{result.id}}">{{ result.address.street }}</a></td>
+                <td>{{ result.address.city }}</td>
+                <td>{{ result.address.state }}</td>
+                <td>{{ result.address.zip }}</td>
+                
+                {% if result.current_lease() %}
+                    <td style="color: green;"> Rented </td>
+                    <td><a href="/renter/{{result.current_lease().renter.id}}">{{ result.current_lease().renter.first_name }} {{ result.current_lease().renter.last_name }}</a></td>
+                    <td>{{ result.current_lease().start_date.month }}/{{ result.current_lease().start_date.year }}</td>
+                    <td>{{ result.current_lease().end_date.month }}/{{ result.current_lease().end_date.year }}</td>
+                {% else %}
+                    <td style="color: red;"> Vacant </td>
+                    <td> -- </td>
+                    <td> -- </td>
+                    <td> -- </td>
+                {% endif %}
+            </tr> 
+        {% endfor %} 
+        </tbody>
+    </table>  
+
+{% endblock %}

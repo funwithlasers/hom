@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>{{ title }}</title>
+    <meta name="HandheldFriendly" content="True"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+    <meta name="theme-color" content="#5eb9d7"/>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='dist/img/favicon.png') }}" type="image/x-icon"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+          integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,500" rel="stylesheet">
+    {% block pagestyles %}
+        <link href="{{ url_for('static', filename='dist/css/layout.css') }}" rel="stylesheet" type="text/css">
+    {% endblock %}
+</head>
+<body class="{{ template }}">
+{% block nav %}
+    <nav class="navbar navbar-expand-lg">
+        <a class="navbar-brand" href="#">Jellyfish Property Management Systems</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/properties">Properties</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/renters">Renters</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Payments</a>
+                </li>
+                {% if current_user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('main_bp.logout') }}">Log out</a>
+                </li>
+                {% endif %}
+            </ul>
+            
+        </div>
+    </nav>
+{% endblock %}
+
+
+<div class="container">
+    {% block content %}{% endblock %}
+</div>
+<!-- Scripts -->
+<script src="{{ url_for('static', filename='dist/js/main.min.js') }}"></script>
+<script src="{{ url_for('static', filename='src/js/buttons.js') }}"></script>
+
+{% block additionalscripts %}{% endblock %}
+{% include 'analytics.jinja2' %}
+</body>
+</html>
