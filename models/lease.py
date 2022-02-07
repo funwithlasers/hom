@@ -7,7 +7,7 @@ from flask_login import current_user
 
 
 class Lease(db.Model):
-    """ Model for user leases """
+    """Model for user leases"""
 
     __tablename__ = "leases"
 
@@ -54,7 +54,7 @@ class Lease(db.Model):
             db.session.commit()
 """
 
-    """ SQLAlchemy relationships """
+    """SQLAlchemy relationships"""
     payments = db.relationship("Payment", backref="lease")
     renter = db.relationship("Renter", backref="leases")
 

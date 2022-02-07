@@ -29,7 +29,7 @@ class Property(db.Model):
     """SQLAlchemy relationships"""
     leases = db.relationship("Lease", backref="property")
 
-    """ Helper Funtions """
+    """Helper Funtions"""
     def most_recent_lease(self):
         return Lease.query.filter_by(property_id=self.id).order_by('start_date').first()
 

@@ -4,7 +4,7 @@ import datetime
 
 
 class Address(db.Model):
-    """ Model for addresses """
+    """Model for addresses"""
 
     __tablename__ = "addresses"
 
@@ -34,7 +34,7 @@ class Address(db.Model):
         default=datetime.datetime.utcnow
     )
 
-    """ SQLAlchemy Relationships """
+    """SQLAlchemy Relationships"""
     property = db.relationship("Property", backref=("address"), uselist = False) #   one-to-one
 
 

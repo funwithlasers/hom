@@ -77,7 +77,7 @@ def properties():
     Display Property Properties
     GET: Serve registration page.
     POST: Validate form, create new property property, redirect user to profile.
-    """        
+    """       
     if current_user.is_authenticated:
         results = Property.query.join(Address, Property.address_id == Address.id) \
                                 .outerjoin(Lease, Property.id == Lease.property_id) \
@@ -198,7 +198,7 @@ def renters():
     Display Renter Properties
     GET: Serve renters page.
     POST: Validate form, create new renter property, redirect user to profile.
-    """        
+    """       
     if current_user.is_authenticated:
 
         # TODO: Fix this query it sucks

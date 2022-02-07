@@ -35,7 +35,7 @@ def session_view():
         'session.jinja2',
         title='Flask-Session Tutorial.',
         template='dashboard-template',
-         session_variable=str(session['redis_test'])
+        session_variable=str(session['redis_test'])
     )
 
 @main_bp.route("/logout")

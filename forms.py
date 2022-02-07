@@ -84,7 +84,7 @@ class PropertyForm(FlaskForm):
 
 
 class RenterForm(FlaskForm):
-    """ Renter form """
+    """Renter form"""
     first_name = StringField(
         'First Name',
         validators=[DataRequired()])
@@ -105,7 +105,7 @@ class RenterForm(FlaskForm):
 
 
 class LeaseForm(FlaskForm):
-    """ Lease  form """
+    """Lease  form"""
     renters = []
     start_date = DateField(
         'Start Date',
@@ -129,7 +129,7 @@ class LeaseForm(FlaskForm):
 
 
 class PaymentForm(FlaskForm):
-    """ Payment  form """
+    """Payment  form"""
     date = DateField(
         'Payment Date',
         validators=[DataRequired()])
